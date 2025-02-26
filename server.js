@@ -1,9 +1,24 @@
 const express = require("express")
 var cors=require('cors')
+const mongoose = require('mongoose')
+const dotenv=require('dotenv')
+
 const app=express()
 const port=3000
+
 app.use(cors({origin:"http://localhost:5173"}))
 app.use(express.json())
+
+dotenv.config("./env")
+const db_password=process.env.DB_PASSWORD
+mongoose.connect(`mongodb+srv://Subhadra:${db_password}@main.s1oiq.mongodb.net/?retryWrites=true&w=majority&appName=main`)
+.then(res=>{
+    console.log("DB connected successfully")
+}).catch(err=>{
+    console.log("DB connection failed")
+})
+
+
 let tasks=[
     {
         id:1,
